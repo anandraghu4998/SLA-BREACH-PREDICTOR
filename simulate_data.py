@@ -38,6 +38,23 @@ windows_stats['next_breach'] = windows_stats['breach'].shift(-1)
 windows_stats = windows_stats.dropna()
 windows_stats['next_breach'] = windows_stats['next_breach'].astype(int)
 
+windows_stats['calls_per_agent'] = windows_stats['avg_handle'] / 1800
+windows_stats['agents_needed'] = windows_stats['total_calls'] * windows_stats['calls_per_agent']
+windows_stats['staffing_gap'] = windows_stats['agents_needed'] - windows_stats['agents_needed'].shift(1)
+
+windows_stats['call_volume_change'] = windows_stats['total_calls'].pct_change()
+windows_stats['wait_time_change'] = windows_stats['avg_wait'].pct_change()
+windows_stats = windows_stats.replace([np.inf, -np.inf], np.nan)
+windows_stats['staffing_gap'] = windows_stats['staffing_gap'].fillna(0)
+windows_stats['call_volume_change'] = windows_stats['call_volume_change'].fillna(0)
+windows_stats['wait_time_change'] = windows_stats['wait_time_change'].fillna(0)
+windows_stats = windows_stats.dropna()
+
+windows_stats['hour'] = windows_stats['windows'].dt.hour
+windows_stats['day_of_week'] = windows_stats['windows'].dt.dayofweek
+windows_stats['is_monday'] = (windows_stats['day_of_week'] == 0).astype(int)
+windows_stats['is_weekend'] = (windows_stats['day_of_week'] >= 5).astype(int)
+
 print(windows_stats[['windows', 'sla_pct', 'breach', 'next_breach']].head(10))
 windows_stats.to_csv('data/processed_windows.csv', index=False)
 print("Saved processed data.")
