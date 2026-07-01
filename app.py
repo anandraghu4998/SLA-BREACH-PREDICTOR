@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-import shap
 
 st.set_page_config(page_title="SLA Breach Predictor", layout="wide")
 
@@ -74,19 +73,19 @@ with col2:
 
     st.markdown("---")
     st.subheader("🔍 Why this prediction?")
-    
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(input_data)
-    
-    shap_df = pd.DataFrame({
-        'Feature': ['Call Volume', 'Queue Time', 'Avg Handle Time', 'SLA %', 'Last Interval Breach',
+
+    importance = model.feature_importances_
+    feature_names = ['Call Volume', 'Queue Time', 'Avg Handle Time', 'SLA %', 'Last Interval Breach',
                     'Agents Available', 'Agents Absent', 'Volume Spike', 'Queue Time Change',
-                    'Hour', 'Day of Week', 'Is Monday', 'Is Weekend'],
-        'Impact': shap_values[0]
-    }).sort_values('Impact', ascending=True)
-    
-    st.bar_chart(shap_df.set_index('Feature')['Impact'])
-    st.caption("Positive values push toward breach. Negative values push away from breach.")
+                    'Hour', 'Day of Week', 'Is Monday', 'Is Weekend']
+
+    importance_df = pd.DataFrame({
+        'Feature': feature_names,
+        'Importance': importance
+    }).sort_values('Importance', ascending=True)
+
+    st.bar_chart(importance_df.set_index('Feature')['Importance'])
+    st.caption("Higher value = stronger influence on the prediction.")
 
 st.markdown("---")
 st.markdown("### 💡 How to use this tool")
@@ -95,7 +94,7 @@ st.info("""
 
 1. **Enter your current interval data** on the left — call volume, agents available, queue time, and current SLA %.
 2. **The prediction updates instantly** — green means you're on track, red means a breach is likely in the next interval.
-3. **Check the chart** to understand why — it shows which factors are driving the risk up or down.
+3. **Check the chart** to understand why — it shows which factors have the strongest influence on the prediction.
 4. **Follow the recommended actions** if a breach is predicted — these are standard WFM interventions used in real contact centres.
 
 *Built using an XGBoost ML model trained on 51,000 real contact centre call records.*
