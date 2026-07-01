@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 from sklearn.metrics import classification_report
 import shap
+import joblib
 
 df= pd.read_csv('data/processed_windows.csv')
 print(df.shape)
@@ -34,7 +35,7 @@ shap_values = explainer.shap_values(X_test)
 
 shap.summary_plot(shap_values, X_test, feature_names=features)
 
-import joblib
+
 
 joblib.dump(model, 'model.pkl')
 print("Model saved.")
