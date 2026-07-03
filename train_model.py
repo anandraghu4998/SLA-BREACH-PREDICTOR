@@ -37,5 +37,5 @@ shap.summary_plot(shap_values, X_test, feature_names=features)
 
 
 
-joblib.dump(model, 'model.pkl')
+model.save_model('model.json')
 print("Model saved.")

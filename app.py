@@ -1,11 +1,14 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+
 
 st.set_page_config(page_title="SLA Breach Predictor", layout="wide")
 
-model = joblib.load('model.pkl')
+
+from xgboost import XGBClassifier
+model = XGBClassifier()
+model.load_model('model.json')
 
 st.title("🚨 SLA Breach Predictor")
 st.subheader("Contact Centre Early Warning System")
