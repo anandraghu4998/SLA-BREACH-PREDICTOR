@@ -1,0 +1,167 @@
+{
+  "best_model": "Logistic regression (C=0.1)",
+  "selection": "highest validation ROC AUC (tie-break: validation PR AUC)",
+  "comparison": [
+    {
+      "model": "Logistic regression (C=0.1)",
+      "val_auc": 0.627,
+      "val_pr_auc": 0.501,
+      "test_auc": 0.646,
+      "test_pr_auc": 0.631
+    },
+    {
+      "model": "Logistic regression (C=1.0)",
+      "val_auc": 0.622,
+      "val_pr_auc": 0.494,
+      "test_auc": 0.636,
+      "test_pr_auc": 0.627
+    },
+    {
+      "model": "Random forest (depth 6)",
+      "val_auc": 0.621,
+      "val_pr_auc": 0.497,
+      "test_auc": 0.658,
+      "test_pr_auc": 0.643
+    },
+    {
+      "model": "Random forest (depth 10)",
+      "val_auc": 0.614,
+      "val_pr_auc": 0.48,
+      "test_auc": 0.655,
+      "test_pr_auc": 0.636
+    },
+    {
+      "model": "Gradient boosting (sklearn)",
+      "val_auc": 0.613,
+      "val_pr_auc": 0.467,
+      "test_auc": 0.635,
+      "test_pr_auc": 0.619
+    },
+    {
+      "model": "XGBoost (depth 3)",
+      "val_auc": 0.61,
+      "val_pr_auc": 0.444,
+      "test_auc": 0.63,
+      "test_pr_auc": 0.605
+    },
+    {
+      "model": "XGBoost (depth 5)",
+      "val_auc": 0.591,
+      "val_pr_auc": 0.411,
+      "test_auc": 0.612,
+      "test_pr_auc": 0.576
+    }
+  ],
+  "threshold": 0.44,
+  "target_recall": 0.8,
+  "periods": {
+    "train": [
+      "2021-01-01 08:00:00",
+      "2021-08-09 13:00:00",
+      2974
+    ],
+    "validation": [
+      "2021-08-09 13:30:00",
+      "2021-10-20 15:00:00",
+      992
+    ],
+    "test": [
+      "2021-10-20 15:30:00",
+      "2021-12-31 17:00:00",
+      992
+    ]
+  },
+  "breach_rate_by_period": {
+    "train": 0.14,
+    "validation": 0.333,
+    "test": 0.462
+  },
+  "validation": {
+    "recall": 0.821,
+    "precision": 0.364,
+    "f1": 0.504,
+    "breaches": 330,
+    "caught": 271,
+    "alerts": 745,
+    "alert_share": 0.751
+  },
+  "test": {
+    "recall": 0.869,
+    "precision": 0.491,
+    "f1": 0.627,
+    "breaches": 458,
+    "caught": 398,
+    "alerts": 811,
+    "alert_share": 0.818
+  },
+  "quiet_threshold": 0.6,
+  "test_quiet": {
+    "recall": 0.57,
+    "precision": 0.571,
+    "f1": 0.57,
+    "breaches": 458,
+    "caught": 261,
+    "alerts": 457,
+    "alert_share": 0.461
+  },
+  "test_at_default_0.5": {
+    "recall": 0.793,
+    "precision": 0.522,
+    "f1": 0.63,
+    "breaches": 458,
+    "caught": 363,
+    "alerts": 695,
+    "alert_share": 0.701
+  },
+  "baseline_last_interval_breached": {
+    "recall": 0.52,
+    "precision": 0.524,
+    "f1": 0.522,
+    "breaches": 458,
+    "caught": 238,
+    "alerts": 454,
+    "alert_share": 0.458
+  },
+  "auc": {
+    "best_test": 0.646,
+    "baseline_test": 0.558
+  },
+  "importance": {
+    "total_calls": 0.0144,
+    "avg_wait": 0.0136,
+    "avg_handle": -0.0011,
+    "sla_pct": 0.0034,
+    "breach": 0.0113,
+    "agents_needed": 0.1185,
+    "staffing_gap": 0.0022,
+    "call_volume_change": 0.0021,
+    "wait_time_change": 0.0012,
+    "hour": -0.0008,
+    "day_of_week": -0.0012,
+    "is_monday": 0.0014,
+    "is_weekend": 0.0,
+    "max_wait": 0.0408,
+    "calls_last10": 0.0459,
+    "wait_last10": 0.0003,
+    "missed_last10": 0.0196
+  },
+  "features": [
+    "total_calls",
+    "avg_wait",
+    "avg_handle",
+    "sla_pct",
+    "breach",
+    "agents_needed",
+    "staffing_gap",
+    "call_volume_change",
+    "wait_time_change",
+    "hour",
+    "day_of_week",
+    "is_monday",
+    "is_weekend",
+    "max_wait",
+    "calls_last10",
+    "wait_last10",
+    "missed_last10"
+  ]
+}
